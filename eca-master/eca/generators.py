@@ -47,8 +47,8 @@ class EventGenerator:
             for event in self.generator(self.stop_flag, **self.generator_args):
                 fire(self.event_name, event)
 
-    
-def offline_tweets(stop, data_file, time_factor=1000, arff_file=None):
+
+def offline_tweets(stop, data_file, time_factor=100000, arff_file=None):
     """
     Offline tweet replay.
 
@@ -98,10 +98,10 @@ def offline_tweets(stop, data_file, time_factor=1000, arff_file=None):
 
             if not last_time:
                 last_time = tweet_time
-            
-            wait = tweet_time - last_time 
+
+            wait = tweet_time - last_time
             delay = wait.total_seconds()
-   
+
             # delay and yield or break depending on success
             if delayed(delay):
                 yield tweet
@@ -111,7 +111,7 @@ def offline_tweets(stop, data_file, time_factor=1000, arff_file=None):
         if arff_file:
             arff_file.close()
 
-      
+
 def start_offline_tweets(data_file, event_name='tweet', aux_name='tweeter', **kwargs):
     context = get_context()
     if context is None:
