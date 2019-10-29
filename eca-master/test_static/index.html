@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neca Test</title>
+    <link rel="stylesheet" href="/style/layout.css"/>
+    <link rel="stylesheet" href="/style/theme.css"/>
+    <script src="/lib/jquery-2.1.1.min.js"></script>
+    <script src="/lib/jquery.flot.min.js"></script>
+    <script src="/lib/core.js"></script>
+    <script src="lib/tweets.js"></script>
+    <script src="/lib/log.js"></script>
+  </head>
+  <body class="container_12">
+    <h1>ECA Dashboard Test</h1>
+
+    <div id="tweets" class="grid_8 vert_4"></div>
+
+    <select>
+      <option value = 'en'>English</option>
+      <option value = 'nl'>Dutch</option>
+      <option value = 'teams'>Teams</option>
+    </select>
+
+    <script>
+      // create a rolling chart block
+      block('#tweets').tweets({
+        memory: 20
+      });
+
+      // connect sample event to graph
+      events.connect('tweet', '#tweets');
+    </script>
+  </body>
+</html>
