@@ -23,6 +23,10 @@ def filter_teams(data):
     if "team" in data['text']:
         return 1
     return 0
+def filter_weather(data):
+#add weather function priya made
+        return 1 
+    return 0 
 def filter_by(data):
     print(choice)
     if choice == 0:
@@ -33,6 +37,8 @@ def filter_by(data):
         filter_dutch(data)
     elif choice == 3:
         filter_teams(data)
+    elif choice == 4:
+        filter_weather(data)
 
 @event('init')
 def setup(ctx, e):
