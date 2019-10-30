@@ -1,34 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Neca Test</title>
+    <title>Twitter Dashboard</title>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/style/layout.css"/>
     <link rel="stylesheet" href="/style/theme.css"/>
+    <link rel="stylesheet" href="style/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
 
     <script src="/lib/jquery-2.1.1.min.js"></script>
     <script src="/lib/jquery.flot.min.js"></script>
     <script src="/lib/core.js"></script>
     <script src="lib/tweets.js"></script>
     <script src="/lib/log.js"></script>
+
   </head>
-  <body class="container_12">
+  <body>
 
-    <h1>ECA Dashboard Test</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="twitter_logo.png" width="37" height="30" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div>
-      <select id = 'filters' onchange = 'submit()'>
-        <option value = '' disabled selected>Choose a filter</option>
-        <option value = '1'>English</option>
-        <option value = '2'>Dutch</option>
-        <option value = '3'>Teams</option>
-      </select>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto margins">
+          <li class="nav-item dropdown" id = "dropdownMenu">
+            <select class="form-control" id = 'filters' onchange = 'submit()'>
+              <option disabled>Choose a filter</option>
+              <option selected value="1">English</option>
+              <option value="2">Dutch</option>
+              <option value="3">Teams</option>
+              <option value="4">Weather</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-first">
+          <div class="card-title"><p>Organiser tweets</p></div>
+          <div class="card-body first" id="organiser_tweets"></div>
+
+          <div class="card-title"><p>Unfiltered Tweets</p></div>
+          <div class="card-body second" id="unfiltered_tweets"></div>
+        </div>
+
+        <div class="col">
+          <div class="card-title"><p>Filtered tweets</p></div>
+          <div class="card-body third" id="filtered_tweets"></div>
+        </div>
+      </div>
     </div>
-
-    <div id="tweets" class="grid_8 vert_4"></div>
-
     <script>
-
       //create submit function for drop down menu
       function submit(){
         var selected_value = $("#filters").children("option:selected").val();
@@ -41,13 +70,25 @@
       }
 
       // create a tweets block
-      block('#tweets').tweets({
+      block('#unfiltered_tweets').tweets({
+        memory: 20
+      });
+
+      block('#filtered_tweets').tweets({
+        memory: 20
+      });
+
+      block('#organiser_tweets').tweets({
         memory: 20
       });
 
       // connect the tweet event to tweets
-      events.connect('tweet', '#tweets');
+      events.connect('unfiltered_tweet', '#unfiltered_tweets');
+      events.connect('filtered_tweet', '#filtered_tweets');
+      events.connect('organiser_tweet', '#organiser_tweets');
     </script>
+    <script src="style/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="style/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 </html>
