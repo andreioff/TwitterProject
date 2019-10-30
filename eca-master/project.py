@@ -9,8 +9,6 @@ import datetime
 import textwrap
 import eca.http
 
-choice = 0
-
 def filter_english(data):
     if data['lang'] == 'en':
         return 1
@@ -23,25 +21,19 @@ def filter_teams(data):
     if "team" in data['text']:
         return 1
     return 0
-def filter_weather(data):
-#add weather function priya made
-        return 1 
-    return 0 
-def filter_by(data):
-    print(choice)
+def filter_by(choice, data):
     if choice == 0:
         return 1
-    elif choice == 1:
-        filter_english(data)
-    elif choice == 2:
-        filter_dutch(data)
-    elif choice == 3:
-        filter_teams(data)
-    elif choice == 4:
-        filter_weather(data)
+    if choice == 1:
+        return filter_english(data)
+    if choice == 2:
+        return filter_dutch(data)
+    if choice == 3:
+        return filter_teams(data)
 
 @event('init')
 def setup(ctx, e):
+   ctx.choice = 0
    start_offline_tweets('bata_2014.txt')
 
 def add_request_handlers(httpd):
@@ -49,9 +41,9 @@ def add_request_handlers(httpd):
 
 @event('filter')
 def change_filter(ctx, e):
-    choice = e.data['value']
+    ctx.choice = int(e.data['value'])
 
 @event('tweet')
-@condition(lambda c,e: filter_by(e.data))
+@condition(lambda c,e: filter_by(c.choice, e.data))
 def echo(c,e):
     emit('tweet', e.data)
