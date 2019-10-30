@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neca Test</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/style/layout.css"/>
+    <link rel="stylesheet" href="/style/theme.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="style/bootstrap/css/bootstrap.min.css"> -->
+
+    <script src="/lib/jquery-2.1.1.min.js"></script>
+    <script src="/lib/jquery.flot.min.js"></script>
+    <script src="/lib/core.js"></script>
+    <script src="lib/tweets.js"></script>
+    <script src="/lib/log.js"></script>
+  </head>
+  <body class="container_12">
+
+    <h1>ECA Dashboard Test</h1>
+
+    <div>
+      <select id = 'filters' onchange = 'submit()'>
+        <option value = '' disabled selected>Choose a filter</option>
+        <option value = '1'>English</option>
+        <option value = '2'>Dutch</option>
+        <option value = '3'>Teams</option>
+      </select>
+    </div>
+
+    <div id="tweets" class="grid_8 vert_4"></div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Action
+      </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </div>
+
+    <script>
+
+      //create submit function for drop down menu
+      function submit(){
+        var selected_value = $("#filters").children("option:selected").val();
+        const data_to_send = JSON.stringify({ "value": selected_value });
+        $.ajax({
+          url: "/api/filter",
+          method: "post",
+          data: data_to_send
+        });
+      }
+
+      // create a tweets block
+      block('#tweets').tweets({
+        memory: 20
+      });
+
+      // connect the tweet event to tweets
+      events.connect('tweet', '#tweets');
+    </script>
+    <!-- <script src="style/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
