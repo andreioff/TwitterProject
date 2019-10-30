@@ -21,6 +21,16 @@ def filter_teams(data):
     if "team" in data['text']:
         return 1
     return 0
+def weather(tweetText):
+    English = ["air", "cloudy", "sunny", "rain", "drizzle", "thunder", "fog", "forecast", "hail", "humid", "heat", "high", "low", "temp", "kelvin", "lightning","meteorolog","overcast","precipitation","pressure","wind","smoke","snow", "storm", "temp", "thunder", "tornado", "warm", "weather", "celcius", "farenheit"]
+    Dutch = ["lucht", "wolk", "zon", "regen", "miezer", "onweer", "mist", "weersverwachting", "hagel", "vochtig", "hitte", "hoog", "laag", "temp", "kelvin", "bliksem", "meteorloog", "zwaarbewolkt", "regen", "druk", "wind", "rook", "sneeuw", "storm", "temp", "onweer", "tornado", "warm", "weer", "celsius", "fahrenheit"]
+    for word in English:
+        if word in lower(tweetText):
+            return 1
+    for word in Dutch:
+        if word in lower(tweetText):
+            return 1
+    return 0
 def filter_by(choice, data):
     if choice == 0:
         return 1
@@ -30,6 +40,8 @@ def filter_by(choice, data):
         return filter_dutch(data)
     if choice == 3:
         return filter_teams(data)
+    if choice == 4:
+        return weather 
 
 @event('init')
 def setup(ctx, e):
