@@ -10,7 +10,7 @@ import textwrap
 import eca.http
 
 def filter_organiser_tweets(data):
-    return data['user']['default_profile']
+    return data['user']['screen_name'] == "Batavierenrace"
 def filter_english(data):
     if data['lang'] == 'en':
         return 1
