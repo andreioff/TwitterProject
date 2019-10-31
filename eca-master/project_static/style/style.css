@@ -1,5 +1,9 @@
 .margins{
-  margin-right: 20%;
+  margin-right: 8%;
+}
+
+.elements-margins{
+  margin-right: 25px;
 }
 
 body{
@@ -26,16 +30,22 @@ body{
 }
 
 .third{
-  height: 100%;
-  max-height: 494px !important;
+  height: 45%;
+  max-height: 203px !important;
+  margin-bottom: 20px;
+}
+
+.fourth{
+  height: 50%;
+  max-height: 247px !important;
 }
 
 .container-fluid{
   margin-top: 25px;
   margin-bottom: 25px;
   height: 500px;
-  /* max-height: 475px !important; */
 }
+
 
 .card-title{
   height: 5%;

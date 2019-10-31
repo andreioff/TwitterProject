@@ -7,14 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/style/layout.css"/>
     <link rel="stylesheet" href="/style/theme.css"/>
+    <link rel="stylesheet" href="/style/wordcloud.css"/>
     <link rel="stylesheet" href="style/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="style/style.css">
 
     <script src="/lib/jquery-2.1.1.min.js"></script>
     <script src="/lib/jquery.flot.min.js"></script>
+    <script src="/lib/jquery.flot.categories.min.js"></script>
     <script src="/lib/core.js"></script>
     <script src="lib/tweets.js"></script>
     <script src="/lib/log.js"></script>
+    <script src="/lib/jqcloud-1.0.4.js"></script>
+    <script src="/lib/wordcloud.js"></script>
 
   </head>
   <body>
@@ -22,13 +26,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
         <img src="twitter_logo.png" width="37" height="30" alt="">
+        Batavierenrace
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto margins">
+        <ul class="navbar-nav ml-auto elements-margins">
           <li class="nav-item dropdown" id = "dropdownMenu">
             <select class="form-control" id = 'filters' onchange = 'submit()'>
               <option disabled>Choose a filter</option>
@@ -39,6 +44,10 @@
             </select>
           </li>
         </ul>
+        <form class="form-inline margins" id="word_filter" action="#" onsubmit="send_word()">
+          <input id="word" class="form-control mr-sm-2" type="search" placeholder="Filter by a word" aria-label="Search">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </div>
     </nav>
     <div class="container-fluid">
@@ -54,39 +63,14 @@
         <div class="col">
           <div class="card-title"><p>Filtered tweets</p></div>
           <div class="card-body third" id="filtered_tweets"></div>
+
+          <div class="card-title"><p>Word Cloud</p></div>
+          <div class="card-body fourth" id="word_cloud"></div>
         </div>
       </div>
     </div>
-    <script>
-      //create submit function for drop down menu
-      function submit(){
-        var selected_value = $("#filters").children("option:selected").val();
-        const data_to_send = JSON.stringify({ "value": selected_value });
-        $.ajax({
-          url: "/api/filter",
-          method: "post",
-          data: data_to_send
-        });
-      }
 
-      // create a tweets block
-      block('#unfiltered_tweets').tweets({
-        memory: 20
-      });
-
-      block('#filtered_tweets').tweets({
-        memory: 20
-      });
-
-      block('#organiser_tweets').tweets({
-        memory: 20
-      });
-
-      // connect the tweet event to tweets
-      events.connect('unfiltered_tweet', '#unfiltered_tweets');
-      events.connect('filtered_tweet', '#filtered_tweets');
-      events.connect('organiser_tweet', '#organiser_tweets');
-    </script>
+    <script src="lib/script.js"></script>
     <script src="style/bootstrap/js/jquery-3.4.1.min.js"></script>
     <script src="style/bootstrap/js/bootstrap.bundle.min.js"></script>
 

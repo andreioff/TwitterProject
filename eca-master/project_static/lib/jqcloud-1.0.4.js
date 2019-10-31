@@ -26,7 +26,7 @@
         y: ((options && options.height) ? options.height : $this.height()) / 2.0
       },
       delayedMode: word_array.length > 50,
-      shape: false, // It defaults to elliptic shape
+      shape: true, // It defaults to rectangular shape
       encodeURI: true,
       removeOverflowing: true
     };
@@ -94,12 +94,11 @@
 
         // Extend word html options with defaults
         word.html = $.extend(word.html, {id: word_id});
-
         // If custom class was specified, put them into a variable and remove it from html attrs, to avoid overwriting classes set by jQCloud
-        if (word.html && word.html["class"]) {
-          custom_class = word.html["class"];
-          delete word.html["class"];
-        }
+        //if (word.html && word.html["class"]) {
+        //  custom_class = word.html["class"]
+        //  delete word.html["class"];
+        //}
 
         // Check if min(weight) > max(weight) otherwise use default
         if (word_array[0].weight > word_array[word_array.length - 1].weight) {
@@ -107,7 +106,7 @@
           weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
                               (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
         }
-        word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class);
+        word_span = $('<span>').attr(word.html).addClass('w' + weight + "" + word_array[index].class);
 
         // Append link if word.url attribute was set
         if (word.link) {
@@ -126,7 +125,6 @@
           inner_html = word.text;
         }
         word_span.append(inner_html);
-
         // Bind handlers to words
         if (!!word.handlers) {
           for (var prop in word.handlers) {

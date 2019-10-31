@@ -13,11 +13,11 @@
         var worddata_dict = {};
         var dirty = false;
 
-        var addword = function(label, value) {
+        var addword = function(label, type, value) {
             if (worddata_dict.hasOwnProperty(label)) {
-                worddata_dict[label] += value;
+                worddata_dict[label][1] += value;
             } else {
-                worddata_dict[label] = value;
+                worddata_dict[label] = [type, value];
             }
             flag_dirty();
         }
@@ -42,16 +42,17 @@
 
             for (var k in worddata_dict) {
                 if (worddata_dict.hasOwnProperty(k)) {
-                        max = Math.max(max, worddata_dict[k]);
+                        max = Math.max(max, worddata_dict[k][1]);
                 }
             }
 
             for (var k in worddata_dict) {
                 if (worddata_dict.hasOwnProperty(k)) {
-                    var val = worddata_dict[k];
+                    var val = worddata_dict[k][1];
                     if (options.filter_function(k,val,max)) {
                         result.push({
                             text: k,
+			    class: worddata_dict[k][0],
                             weight: options.weight_function(k,val,max)
                         });
                     }
@@ -72,7 +73,7 @@
                 setword(message.value[0], message.value[1]);
             },
             'add': function(e, message) {
-                addword(message.value[0], message.value[1]);
+                addword(message.value[0], message.value[1], message.value[2]);
             },
             'reset': function(e, message) {
                 reset();

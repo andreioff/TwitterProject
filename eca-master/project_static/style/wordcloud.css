@@ -1,9 +1,17 @@
 /* fonts */
 
+@font-face {
+font-family: 'Gotham-Book';
+font-style: normal;
+font-weight: normal;
+src: url('Gotham-Book.woff') format('woff');
+}
+
 div.jqcloud {
-  font-family: "Helvetica", "Arial", sans-serif;
+  font-family: 'Gotham-Book';
   font-size: 10px;
   line-height: normal;
+  text-shadow: 1px 1px 1px #000
 }
 
 div.jqcloud a {
@@ -11,16 +19,27 @@ div.jqcloud a {
   text-decoration: none;
 }
 
-div.jqcloud span.w10 { font-size: 550%; }
-div.jqcloud span.w9 { font-size: 500%; }
-div.jqcloud span.w8 { font-size: 450%; }
-div.jqcloud span.w7 { font-size: 400%; }
-div.jqcloud span.w6 { font-size: 350%; }
-div.jqcloud span.w5 { font-size: 300%; }
-div.jqcloud span.w4 { font-size: 250%; }
-div.jqcloud span.w3 { font-size: 200%; }
-div.jqcloud span.w2 { font-size: 150%; }
-div.jqcloud span.w1 { font-size: 100%; }
+div.jqcloud span.w10g { font-size: 550%; }
+div.jqcloud span.w9g { font-size: 500%; }
+div.jqcloud span.w8g { font-size: 450%; }
+div.jqcloud span.w7g { font-size: 400%; }
+div.jqcloud span.w6g { font-size: 350%; }
+div.jqcloud span.w5g { font-size: 300%; }
+div.jqcloud span.w4g { font-size: 250%; }
+div.jqcloud span.w3g { font-size: 200%; }
+div.jqcloud span.w2g { font-size: 150%; }
+div.jqcloud span.w1g { font-size: 100%; }
+
+div.jqcloud span.w10b { font-size: 550%; }
+div.jqcloud span.w9b { font-size: 500%; }
+div.jqcloud span.w8b { font-size: 450%; }
+div.jqcloud span.w7b { font-size: 400%; }
+div.jqcloud span.w6b { font-size: 350%; }
+div.jqcloud span.w5b { font-size: 300%; }
+div.jqcloud span.w4b { font-size: 250%; }
+div.jqcloud span.w3b { font-size: 200%; }
+div.jqcloud span.w2b { font-size: 150%; }
+div.jqcloud span.w1b { font-size: 100%; }
 
 /* colors */
 
@@ -28,16 +47,27 @@ div.jqcloud { color: #09f; }
 div.jqcloud a { color: inherit; }
 div.jqcloud a:hover { color: #0df; }
 div.jqcloud a:hover { color: #0cf; }
-div.jqcloud span.w10 { color: #0cf; }
-div.jqcloud span.w9 { color: #0cf; }
-div.jqcloud span.w8 { color: #0cf; }
-div.jqcloud span.w7 { color: #39d; }
-div.jqcloud span.w6 { color: #90c5f0; }
-div.jqcloud span.w5 { color: #90a0dd; }
-div.jqcloud span.w4 { color: #90c5f0; }
-div.jqcloud span.w3 { color: #a0ddff; }
-div.jqcloud span.w2 { color: #99ccee; }
-div.jqcloud span.w1 { color: #aab5f0; }
+div.jqcloud span.w10g { color: #33e5ff; }
+div.jqcloud span.w9g { color: #33e5ff; }
+div.jqcloud span.w8g { color: #33d5ff; }
+div.jqcloud span.w7g { color: #33cfff; }
+div.jqcloud span.w6g { color: #33dfff; }
+div.jqcloud span.w5g { color: #33f7ff; }
+div.jqcloud span.w4g { color: #33f4ff; }
+div.jqcloud span.w3g { color: #10f2fb; }
+div.jqcloud span.w2g { color: #7afaff; }
+div.jqcloud span.w1g { color: #a0fbff; }
+
+div.jqcloud span.w10b { color: #0006a1; }
+div.jqcloud span.w9b { color: #002dfe; }
+div.jqcloud span.w8b { color: #254bff; }
+div.jqcloud span.w7b { color: #385bff; }
+div.jqcloud span.w6b { color: #3873ff; }
+div.jqcloud span.w5b { color: #2263fc; }
+div.jqcloud span.w4b { color: #227afc; }
+div.jqcloud span.w3b { color: #3888ff; }
+div.jqcloud span.w2b { color: #4791ff; }
+div.jqcloud span.w1b { color: #3f82e6; }
 
 /* layout */
 

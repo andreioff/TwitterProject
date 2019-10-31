@@ -7,7 +7,9 @@ root_content_path = 'project_static'
 from eca.generators import start_offline_tweets
 import datetime
 import textwrap
+import pprint
 import eca.http
+import re
 
 def filter_organiser_tweets(data):
     return data['user']['screen_name'] == "Batavierenrace"
@@ -44,9 +46,12 @@ def filter_weather(data):
             return 1
 
     return 0
+def filter_word(word, data):
+    return word in data['text']
 def filter_by(choice, data):
-    if choice == 0:
-        return 1
+
+    if isinstance(choice, str):
+        return filter_word(choice, data)
     if choice == 1:
         return filter_english(data)
     if choice == 2:
@@ -56,23 +61,50 @@ def filter_by(choice, data):
     if choice == 4:
         return filter_weather(data)
 
+# simple word splitter
+pattern = re.compile('\W+')
+def words(message):
+    result = pattern.split(message)
+    result = map(lambda w: w.lower(), result)
+    result = filter(lambda w: len(w) > 2, result)
+    return result
+def good_or_bad(word):
+    f = open("PositiveWords.txt", "r")
+    g = open("NegativeWords.txt", "r")
+    plot = f.readline().split(",")
+    nlot = g.readline().split(",")
+    f.close()
+    g.close()
+    if word in plot:
+        return 0
+    elif word in nlot:
+        return 1
+    else:
+        return -1
+
+def add_request_handlers(httpd):
+    httpd.add_route('/api/filter', eca.http.GenerateEvent('filter'), methods=['POST'])
+    httpd.add_content('/lib/', 'project_static/lib')
+    httpd.add_content('/style/', 'project_static/style')
+
 @event('init')
 def setup(ctx, e):
    ctx.choice = 1
    start_offline_tweets('bata_2014.txt', event_name = "unfiltered_tweet")
 
-def add_request_handlers(httpd):
-    httpd.add_route('/api/filter', eca.http.GenerateEvent('filter'), methods=['POST'])
 
 @event('filter')
 def change_filter(ctx, e):
-    ctx.choice = int(e.data['value'])
+    if isinstance(e.data['value'], int):
+        ctx.choice = int(e.data['value'])
+    else: ctx.choice = e.data['value']
 
 @event('unfiltered_tweet')
 def echo(c, e):
     emit('unfiltered_tweet', e.data)
     fire('organiser_tweet', e.data)
     fire('filtered_tweet', e.data)
+    fire('word_cloud', e.data)
 
 @event('filtered_tweet')
 @condition(lambda c,e: filter_by(c.choice, e.data))
@@ -83,3 +115,16 @@ def echo(c,e):
 @condition(lambda c,e: filter_organiser_tweets(e.data))
 def echo(c,e):
     emit('organiser_tweet', e.data)
+
+@event('word_cloud')
+def echo(ctx, e):
+    tweet = e.data
+    for w in words(tweet['text']):
+        if good_or_bad(w) == 0:
+            emit('goodword', {
+                'action': 'add',
+                'value': (w, "g", 1)});
+        elif good_or_bad(w) == 1:
+            emit('badword', {
+                'action': 'add',
+                'value': (w, "b", 1)});
