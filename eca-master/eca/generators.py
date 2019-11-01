@@ -48,7 +48,7 @@ class EventGenerator:
                 fire(self.event_name, event)
 
 
-def offline_tweets(stop, data_file, time_factor=100000, arff_file=None):
+def offline_tweets(stop, data_file, time_factor=50000, arff_file=None):
     """
     Offline tweet replay.
 

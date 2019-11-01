@@ -47,7 +47,7 @@ def filter_weather(data):
 
     return 0
 def filter_word(word, data):
-    return word in data['text']
+    return word in str(data['text']).lower()
 def filter_by(choice, data):
 
     if isinstance(choice, str):

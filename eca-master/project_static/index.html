@@ -16,7 +16,6 @@
     <script src="/lib/jquery.flot.categories.min.js"></script>
     <script src="/lib/core.js"></script>
     <script src="lib/tweets.js"></script>
-    <script src="/lib/log.js"></script>
     <script src="/lib/jqcloud-1.0.4.js"></script>
     <script src="/lib/wordcloud.js"></script>
 
@@ -52,18 +51,24 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="col col-first">
+        <div class="col">
           <div class="card-title"><p>Organiser tweets</p></div>
           <div class="card-body first" id="organiser_tweets"></div>
-
-          <div class="card-title"><p>Unfiltered Tweets</p></div>
-          <div class="card-body second" id="unfiltered_tweets"></div>
         </div>
 
         <div class="col">
           <div class="card-title"><p>Filtered tweets</p></div>
           <div class="card-body third" id="filtered_tweets"></div>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col">
+          <div class="card-title"><p>Unfiltered Tweets</p></div>
+          <div class="card-body second" id="unfiltered_tweets"></div>
+        </div>
+
+        <div class="col">
           <div class="card-title"><p>Word Cloud</p></div>
           <div class="card-body fourth" id="word_cloud"></div>
         </div>
