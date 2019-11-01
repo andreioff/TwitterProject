@@ -1,15 +1,15 @@
 from eca import *
-
 import random
-
-root_content_path = 'project_static'
-
 from eca.generators import start_offline_tweets
 import datetime
 import textwrap
 import pprint
 import eca.http
 import re
+import pickle
+
+root_content_path = 'project_static'
+
 
 def filter_organiser_tweets(data):
     return data['user']['screen_name'] == "Batavierenrace"
@@ -69,10 +69,10 @@ def words(message):
     result = filter(lambda w: len(w) > 2, result)
     return result
 def good_or_bad(word):
-    f = open("PositiveWords.txt", "r")
-    g = open("NegativeWords.txt", "r")
-    plot = f.readline().split(",")
-    nlot = g.readline().split(",")
+    f = open("PositiveWords", "rb")
+    g = open("NegativeWords", "rb")
+    plot = pickle.load(f)
+    nlot = pickle.load(g)
     f.close()
     g.close()
     if word in plot:
