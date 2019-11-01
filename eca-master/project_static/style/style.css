@@ -70,3 +70,7 @@ select{
   background-color: #F8F9FA !important;
   padding-right: 0 !important;
 }
+
+#word{
+  width: 250px;
+}

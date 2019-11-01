@@ -36,17 +36,15 @@
           <li class="nav-item dropdown" id = "dropdownMenu">
             <select class="form-control" id = 'filters' onchange = 'submit()'>
               <option disabled>Choose a filter</option>
-              <option selected value="1">English</option>
-              <option value="2">Dutch</option>
-              <option value="3">Teams</option>
-              <option value="4">Weather</option>
+              <option selected value="e">English</option>
+              <option value="d">Dutch</option>
+              <option value="t">Teams</option>
+              <option value="w">Weather</option>
             </select>
           </li>
         </ul>
-        <form class="form-inline margins" id="word_filter" action="#" onsubmit="send_word()">
-          <input id="word" class="form-control mr-sm-2" type="search" placeholder="Filter by a word" aria-label="Search">
-          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <input id="word" class="form-control mr-sm-2" type="search" placeholder="Filter by a word" aria-label="Search">
+        <button class="btn btn-outline-info my-2 my-sm-0 margins" type="submit" onclick="send_word()">Search</button>
       </div>
     </nav>
     <div class="container-fluid">

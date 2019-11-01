@@ -10,21 +10,24 @@ import pickle
 
 root_content_path = 'project_static'
 
-
 def filter_organiser_tweets(data):
     return data['user']['screen_name'] == "Batavierenrace"
+
 def filter_english(data):
     if data['lang'] == 'en':
         return 1
     return 0
+
 def filter_dutch(data):
     if data['lang'] == 'nl':
         return 1
     return 0
+
 def filter_teams(data):
     if "team" in data['text']:
         return 1
     return 0
+
 def filter_weather(data):
     English = [" air ", " cloudy ", " sunny ", " rain ", " drizzle ", " thunder ", " fog ", \
         " forecast ", " hail ", " humid ", " heat ", " high ", " low ", " temp ", " kelvin ", \
@@ -40,26 +43,25 @@ def filter_weather(data):
     for word in English:
         if word in str(data).lower():
             return 1
-
     for word in Dutch:
         if word in str(data).lower():
             return 1
-
     return 0
+
 def filter_word(word, data):
     return word in str(data['text']).lower()
+
 def filter_by(choice, data):
 
-    if isinstance(choice, str):
-        return filter_word(choice, data)
-    if choice == 1:
+    if choice == "e":
         return filter_english(data)
-    if choice == 2:
+    if choice == "d":
         return filter_dutch(data)
-    if choice == 3:
+    if choice == "t":
         return filter_teams(data)
-    if choice == 4:
+    if choice == "w":
         return filter_weather(data)
+    return filter_word(choice, data)
 
 # simple word splitter
 pattern = re.compile('\W+')
@@ -68,6 +70,7 @@ def words(message):
     result = map(lambda w: w.lower(), result)
     result = filter(lambda w: len(w) > 2, result)
     return result
+
 def good_or_bad(word):
     f = open("PositiveWords", "rb")
     g = open("NegativeWords", "rb")
@@ -89,15 +92,13 @@ def add_request_handlers(httpd):
 
 @event('init')
 def setup(ctx, e):
-   ctx.choice = 1
+   ctx.choice = "e"
    start_offline_tweets('bata_2014.txt', event_name = "unfiltered_tweet")
 
 
 @event('filter')
 def change_filter(ctx, e):
-    if isinstance(e.data['value'], int):
-        ctx.choice = int(e.data['value'])
-    else: ctx.choice = e.data['value']
+    ctx.choice = e.data['value']
 
 @event('unfiltered_tweet')
 def echo(c, e):
